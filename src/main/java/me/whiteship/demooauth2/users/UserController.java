@@ -1,6 +1,7 @@
 package me.whiteship.demooauth2.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @PreAuthorize("#oauth2.hasScope('read_profile')")
     @GetMapping("/user")
     public List<User> listUser() {
         return userService.findAll();

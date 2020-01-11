@@ -43,7 +43,7 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             User newUser = new User();
             newUser.setUsername("user");
-            newUser.setPassword("pass");
+            newUser.setPassword("test");
             this.save(newUser);
         }
     }
