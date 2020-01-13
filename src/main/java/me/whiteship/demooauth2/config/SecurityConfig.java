@@ -44,15 +44,15 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableOAuth2Client
+//@EnableOAuth2Client
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "userService")
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private OAuth2ClientContext oauth2ClientContext;
+    //@Autowired
+    //private OAuth2ClientContext oauth2ClientContext;
 
     @Autowired
     private SocialService socialService;
@@ -84,6 +84,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http
+            .cors()
+            .and()
+            .csrf()
+            .disable()
+            .anonymous()
+            .disable()
+            .authorizeRequests()
+            .antMatchers("/api-docs/**").permitAll();
+        /*
         http.csrf().disable();
 
         http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest()
@@ -98,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/")
             .permitAll();
+         */
     }
 
 
@@ -111,7 +122,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
+    /*
     @Bean
     @ConfigurationProperties("facebook")
     public ClientResources facebook() {
@@ -152,4 +163,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         tokenServices.setRestTemplate(restTemplate);
         return filter;
     }
+    */
 }
