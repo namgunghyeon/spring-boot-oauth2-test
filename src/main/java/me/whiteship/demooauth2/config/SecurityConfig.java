@@ -84,22 +84,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.csrf().disable();
 
         http.antMatcher("/**").authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest()
-                .authenticated().and().exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
-                .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
+            .authenticated().and().exceptionHandling()
+            .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/")).and()
+            .addFilterBefore(ssoFilter(), BasicAuthenticationFilter.class);
 
         // logout
         http.logout()
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")
-                .permitAll();
-        // @formatter:on
+            .invalidateHttpSession(true)
+            .clearAuthentication(true)
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/")
+            .permitAll();
     }
 
 

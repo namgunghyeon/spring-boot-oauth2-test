@@ -51,6 +51,11 @@ response
     }]
 ```
 
+- facebook login
+```
+https://localhost:8080/login/facebook
+```
+
 ## 레퍼런스
 https://www.devglan.com/spring-security/spring-boot-security-oauth2-example
 
